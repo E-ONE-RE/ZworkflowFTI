@@ -1,0 +1,188 @@
+<mvc:View controllerName="workflow.controller.Worklist" 
+xmlns="sap.m" 
+xmlns:mvc="sap.ui.core.mvc" 
+xmlns:footerbar="sap.ushell.ui.footerbar"
+xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<Page id="page" 
+	navButtonPress="onNavBack" 
+	showNavButton="true"
+	title="{i18n>worklistViewTitle}"
+	floatingFooter="true">
+		
+<headerContent>
+            <Button
+                icon="sap-icon://synchronize"
+                press="onClickRefresh" 
+                type="Emphasized"/>
+  </headerContent>
+  
+		<content>
+			<IconTabBar
+				id="iconTab"
+				expandable="false"
+			select="onQuickFilter"
+			backgroundDesign="Translucent"
+			applyContentPadding="false">
+				<items>
+					<IconTabFilter
+						key="all"
+						showAll="true"
+						icon= "sap-icon://database"
+						count="{i18n>worklistFilterTaskAllCount}"
+						text=""
+						/>
+					<IconTabSeparator/>
+					<IconTabFilter
+						key="lessUrgent"
+						icon="sap-icon://sys-enter-2"
+						iconColor="Positive"
+						count="{worklistView>/lessUrgent}"
+						text="Not urgent"/>
+					<IconTabFilter
+						key="Urgent"
+						icon="sap-icon://alert"
+						iconColor="Critical"
+						count="{worklistView>/Urgent}"
+						text="Urgent"/>
+					<IconTabFilter
+						key="moreUrgent"
+						icon="sap-icon://alert"
+						iconColor="Negative"
+						count="{worklistView>/moreUrgent}"
+						text="Very urgent"/>
+				</items>
+			</IconTabBar>
+			<!-- (SE) multiselect per poter selezionare più righe 21062017-->
+			<Table id="table" 
+			
+			width="auto" class="sapUiResponsiveMargin" items="{ path: '/TaskSet', sorter: { path: 'ZWfUtente', descending: false } }"
+				noDataText="{i18n>tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true"
+				updateFinished="onUpdateFinished" backgroundDesign="Translucent">
+				<headerToolbar>
+					<Toolbar>
+						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
+					</Toolbar>
+				</headerToolbar>
+						<columns>
+						<Column id="docColumn" >
+							<Text text="{i18n>tableDocColumnTitle}" id="docColumnTitle"/>
+						</Column>
+						
+						<Column id="userColumn"  demandPopin="false"
+		    						minScreenWidth="Tablet">
+						 	<Text text="{i18n>tableUserColumnTitle}" id="userColumnTitle"/>
+						</Column>
+						
+						<Column id="ActivityColumn" demandPopin="false"
+		    						minScreenWidth="Tablet">
+						 	<Text text="{i18n>tableActivityColumnTitle}" id="ActivityColumnTitle"/>
+						</Column>
+						
+						<Column id="procidColumn"  demandPopin="false"
+		    						minScreenWidth="Tablet">
+							<Text text="{i18n>tableProcidColumnTitle}" id="procidColumnTitle"/>
+						</Column>
+						
+						<Column id="taskidColumn"  demandPopin="false"
+		    						minScreenWidth="Tablet">
+							<Text text="{i18n>tableTaskidColumnTitle}" id="taskidColumnTitle"/>
+						</Column>
+						
+						
+						
+						<!-- giorni in pending con colore  in base all'urgenza 
+						
+						<Column id="pendingColumn"  demandPopin="false"
+		    						minScreenWidth="Tablet">
+							<Text text="{i18n>tablePendingColumnTitle}" id="PendingColumnTitle"/>
+						</Column>
+						
+						-->
+						
+					  
+						
+						<Column id="startDateColumn" demandPopin="true"
+		    						minScreenWidth="Tablet">
+							<Text text="{i18n>tableStartDateColumnTitle}" id="StartDateColumnTitle"/>
+						</Column>
+							
+						<Column id="unitNumberColumn" hAlign="Right">
+						   <Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
+						</Column>
+						
+						<Column id="currencyColumn" hAlign="Left" demandPopin="false"
+		    						 minScreenWidth="Tablet">
+								<Text text="{i18n>tableCurrencyColumnTitle}" id="currencyColumnTitle"/>
+						</Column>
+						
+						  <Column id="statusColumn">
+								<Text text="{i18n>tableStatusColumnTitle}" id="StatusColumnTitle"/>
+						</Column>
+					
+			</columns>
+			<items>
+				<ColumnListItem id="cli" type="Navigation" press="onPress">
+				<cells>
+						<ObjectIdentifier title="{ZWfDocument}"/>
+							
+						<Text  text="{ZWfUtente}"/>
+						
+						<Text  text="{ZWfText}"/>
+						
+						<Text text="{ path: 'ZWfProcid', formatter: '.formatter.formatPadding' }"/>
+					
+						<Text text="{ path: 'ZWfTaskid', formatter: '.formatter.formatPadding' }"/>
+				
+						
+	                <!-- giorni in pending con colore  in base all'urgenza
+						<ObjectNumber
+								number="{IconId}"
+								state="{
+					               path: 'IconId',
+					               formatter: '.formatter.quantityState'}"
+					               />
+					-->
+						
+
+					
+						<Text text="{ path: 'ZDtStart', formatter: '.formatter.formatDate' }"/>
+				
+						<ObjectNumber
+								number="{
+									path: 'ZWfValoreDocumento',
+									formatter: '.formatter.numberUnit'
+								}"/>
+						
+						<Text text="{ZWfValuta}"/>
+						
+						<ObjectStatus icon="{ path: 'IconId', formatter: '.formatter.iconType' }"
+							state="{path : 'IconId', formatter: '.formatter.statusType' }"/>
+								
+					</cells>			
+				</ColumnListItem>
+			</items>
+			</Table>
+		</content>
+		<!--	<footer>
+			<OverflowToolbar id="footerToolbar">
+				<ToolbarSpacer/>	!-->
+			<!--	    
+				<ToolbarSpacer/>
+				<Button id="shareButton" tooltip="{i18n>shareTooltip}" icon="sap-icon://action" press="onSharePress">
+					<dependents>
+						<ActionSheet id="shareSheet" showCancelButton="true" placement="Top">
+							<buttons>
+								<Button id="shareEmail" icon="sap-icon://email" text="{i18n>shareSendEmail}" press="onShareEmailPress"/>
+								<Button id="shareInJam" icon="sap-icon://jam" text="{i18n>shareOnJamTitle}" press="onShareInJamPress" visible="{FLP>/isShareInJamActive}"/>
+								<footerbar:AddBookmarkButton id="shareTile" appData="{ path: 'worklistView>/saveAsTileTitle', formatter: '.formatter.shareTileData' }"/>
+							</buttons>
+						</ActionSheet>
+					</dependents>
+				</Button>
+!-->
+	<!--
+			</OverflowToolbar>
+		</footer>	!-->
+	</Page>
+</mvc:View>

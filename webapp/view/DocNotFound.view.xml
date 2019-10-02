@@ -1,0 +1,7 @@
+<mvc:View controllerName="Workflow.controller.DocNotFound" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<MessagePage title="{i18n>noDocFoundTitle}" text="{i18n>noDocFoundText}" icon="{sap-icon://document}" description="" id="page">
+		<customDescription>
+			<Link id="link" text="{i18n>backToObject}" press="onLinkPressed"/>
+		</customDescription>
+	</MessagePage>
+</mvc:View>

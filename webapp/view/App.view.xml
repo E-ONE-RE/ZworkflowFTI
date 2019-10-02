@@ -1,0 +1,20 @@
+<mvc:View
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="workflow.controller.App"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<App id="app"
+		 busy="{appView>/busy}"
+		 busyIndicatorDelay="{appView>/delay}"
+		 	backgroundImage="https://i.ibb.co/PTkQ2n4/immagine-sfondo-app-worflow.png"
+		 	backgroundRepeat = "true"
+			backgroundOpacity="0.1"/>/>
+			
+			
+
+</mvc:View>
+
+

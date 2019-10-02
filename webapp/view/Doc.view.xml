@@ -1,0 +1,56 @@
+<mvc:View controllerName="Workflow.controller.Doc" 
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:semantic="sap.m.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar" 
+	xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" 
+	xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form" >
+	
+<Page navButtonPress="onNavBack" showNavButton="true" title="{i18n>docTitle}" busy="{docView>/busy}"
+		busyIndicatorDelay="{docView>/delay}" floatingFooter="false">
+	
+	
+
+			<content>
+
+					<core:HTML id="map_iframe"/>  
+	
+<!--				<html:object id="map_iframe" data="" target="_top" type="application/pdf" ></html:object>
+   	-->	
+    		</content>
+			
+<!--		<footer>
+			<OverflowToolbar id="footerToolbar">
+					<ToolbarSpacer/>
+					<Button id="btn1" type="Accept" text="Approve" press="actionTask">
+				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
+				  </Button>
+				  <Button id="btn2" type="Reject" text="Reject" press="actionTask">
+				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
+				   </Button>
+				  	<Button id="btn3" type="Default" text="Move" press="actionTask">
+				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
+				</Button>
+			-->
+	<!--
+				<ToolbarSpacer/>
+				<Button id="shareButton" tooltip="{i18n>shareTooltip}" icon="sap-icon://action" press="onSharePress">
+					<dependents>
+						<ActionSheet id="shareSheet" showCancelButton="true" placement="Top">
+							<buttons>
+								<Button id="shareEmail" icon="sap-icon://email" text="{i18n>shareSendEmail}" press="onShareEmailPress"/>
+								<Button id="shareInJam" icon="sap-icon://jam" text="{i18n>shareOnJamTitle}" press="onShareInJamPress" visible="{FLP>/isShareInJamActive}"/>
+								<footerbar:AddBookmarkButton id="shareTile" appData="{ path: 'objectView>/saveAsTileTitle', formatter: '.formatter.shareTileData' }"/>
+							</buttons>
+						</ActionSheet>
+					</dependents>
+				</Button>
+				!-->
+		<!--	</OverflowToolbar>
+		</footer>-->
+	</Page>
+</mvc:View>

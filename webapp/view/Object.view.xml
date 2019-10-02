@@ -1,0 +1,408 @@
+<mvc:View controllerName="workflow.controller.Object" 
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:semantic="sap.m.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar" 
+	xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" 
+	xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:smartForm="sap.ui.comp.smartform" 
+	xmlns:smartField="sap.ui.comp.smartfield">
+
+	<Page navButtonPress="onNavBack" showNavButton="true" title="{i18n>objectTitle}" busy="{objectView>/busy}"
+		busyIndicatorDelay="{objectView>/delay}" floatingFooter="true">
+
+
+	
+
+	<ObjectHeader id="objHead" responsive="true" title="Task {ZWfTaskid}" icon="sap-icon://activity-individual" intro="Currently running in process {ZWfProcid}" 
+	number="{ZWfValoreDocumento}" numberUnit="{ZWfValuta}" 
+			backgroundDesign="Translucent">
+				<statuses>
+				<ObjectStatus title="Process" text="{ZWfText}"/>
+				<ObjectStatus title="Document" text="{ZWfDocument}"/>
+				<ObjectStatus title="Status" text="{path : 'IconId', formatter: '.formatter.statusText'}"
+					state="{path : 'IconId', formatter: '.formatter.statusType' }"/>
+			</statuses>
+		</ObjectHeader> 
+
+<!--	<IconTabBar id="iconTab2" expandable="false" backgroundDesign="Transparent" applyContentPadding="false" select="onSelectChanged"> -->
+<IconTabBar id="iconTab2" expandable="false" backgroundDesign="Transparent" applyContentPadding="false">
+			<items>
+				<IconTabFilter key="1" icon="sap-icon://hint" text="Informations">
+
+					<content>
+	<html:br>
+		
+	</html:br>
+						<Panel id="panel" width="auto" class="sapUiResponsiveMargin" backgroundDesign="Transparent" expandable="true">
+							<headerToolbar>
+								<Toolbar height="auto">
+									<Title text="Task History"/>
+								</Toolbar>
+							</headerToolbar>
+							
+								
+						<smartTable:SmartTable id="ST_storico" entitySet="TaskHstSet" tableType="Table" useExportToExcel="true" useVariantManagement="false"
+								header="Task History" enableCustomFilter="false" showRowCount="true" enableAutoBinding="true" tableBindingPath="TaskToHst"
+								class="sapUiResponsiveContentPadding">
+								<Table id="Table2" width="auto" class="sapUiResponsiveMargin" growing="true" growingScrollToLoad="true" backgroundDesign="Translucent">
+									<columns>
+										<Column id="C1" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfUtente", "columnKey":"ZWfUtente"}' class="myStyle">
+											<Text text="Utente" id="nameColumnTitle1"/>
+										</Column>
+										<Column id="C2" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZDtStart", "columnKey":"ZDtStart"}'>
+											<Text text="Data Inizio" id="nameColumnTitle2"/>
+										</Column>
+										<Column id="C3" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZHhStart", "columnKey":"ZHhStart"}'>
+											<Text text="Ora inizio" id="nameColumnTitle3"/>
+										</Column>
+										<Column id="C4" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfText", "columnKey":"ZWfText"}'>
+											<Text text="Descrizione attività" id="nameColumnTitle4"/>
+										</Column>
+										<Column id="C5" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZDtStop", "columnKey":"ZDtStop"}'>
+											<Text text="Data fine" id="nameColumnTitle5"/>
+										</Column>
+										<Column id="C6" width="auto" minScreenWidth="Tablet" demandPopin="false" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZHhStop", "columnKey":"ZHhStop"}'>
+											<Text text="Ora fine" id="nameColumnTitle6"/>
+										</Column>
+										<Column id="C7" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfProcid", "columnKey":"ZWfProcid"}'>
+											<Text text="Id Processo" id="nameColumnTitle7"/>
+										</Column>
+										<Column id="C8" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfTaskid", "columnKey":"ZWfTaskid"}'>
+											<Text text="Id Task" id="nameColumnTitle8"/>
+										</Column>
+										<Column id="C9" width="auto" minScreenWidth="phone" demandPopin="false" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfAzione", "columnKey":"ZWfAzione"}'>
+											<Text text="Azione" id="nameColumnTitle9"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<ObjectIdentifier title="{ZWfUtente}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{path: 'ZDtStart', formatter: '.formatter.formatDate'}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{path: 'ZHhStart', formatter: '.formatter.formatTime'}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfText}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{path: 'ZDtStop', formatter: '.formatter.formatDate'}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{path: 'ZHhStop', formatter: '.formatter.formatTime'}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfProcid}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfTaskid}"/>
+											</cells>
+											<cells>
+												
+													<ObjectStatus text="{path: 'ZWfAzione', formatter:'.formatter.actionText'}"
+							                         state="{path: 'ZWfAzione', formatter:'.formatter.actionColor'}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+								<smartTable:layoutData>
+									<FlexItemData growFactor="1" baseSize="0%"/>
+								</smartTable:layoutData>
+							</smartTable:SmartTable> 
+						</Panel>
+						<Panel id="panel2" width="auto" class="sapUiResponsiveMargin" backgroundDesign="Transparent" expandable="true">
+							<headerToolbar>
+								<Toolbar height="auto">
+									<Title text="Process Steps"/>
+								</Toolbar>
+							</headerToolbar>
+							<smartTable:SmartTable id="Processo" entitySet="ProcessSet" tableType="Table" useExportToExcel="true" useVariantManagement="false"
+								header="Process Steps" enableCustomFilter="false" showRowCount="true" enableAutoBinding="true" tableBindingPath="TaskToProcess"
+								class="sapUiResponsiveContentPadding">
+								<Table id="Table3" width="auto" class="sapUiResponsiveMargin" growing="true" growingScrollToLoad="true" backgroundDesign="Translucent">
+									<columns>
+										<Column id="col1" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfStep", "columnKey":"ZWfStep"}'>
+											<Text text="Step" id="nameC1"/>
+										</Column>
+										<Column id="col2" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfSubop", "columnKey":"ZWfSubop"}'>
+											<Text text="Sub operation" id="nameC2"/>
+										</Column>
+										<Column id="col3" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfUser", "columnKey":"ZWfUser"}'>
+											<Text text="User" id="nameC3"/>
+										</Column>
+										<Column id="col4" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfText", "columnKey":"ZWfText"}'>
+											<Text text="Activity Description" id="nameC4"/>
+										</Column>
+										<Column id="col5" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfStepOk", "columnKey":"ZWfStepOk"}'>
+											<Text text="Next Step" id="nameC5"/>
+										</Column>
+										<Column id="col6" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfStepKo", "columnKey":"ZWfStepKo"}'>
+											<Text text="Previous Step" id="nameC6"/>
+										</Column>
+										<Column id="col7" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfSkip", "columnKey":"ZWfSkip"}'>
+											<Text text="Skip" id="nameC7"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<ObjectIdentifier title="{ZWfStep}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfSubop}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfUser}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfText}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfStepOk}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfStepKo}"/>
+											</cells>
+											<cells>
+												<ObjectIdentifier title="{ZWfSkip}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+								<smartTable:layoutData>
+									<FlexItemData growFactor="1" baseSize="0%"/>
+								</smartTable:layoutData>
+							</smartTable:SmartTable>
+						</Panel>
+
+					</content>
+				</IconTabFilter>
+			
+				<IconTabFilter key="2" icon="sap-icon://documents" text="Documents">
+						
+					<content>
+							
+					<Panel id="panel_doc" width="auto" class="sapUiResponsiveMargin" backgroundDesign="Transparent" expandable="false">
+							<headerToolbar>
+								<Toolbar height="auto">
+									<Title text="Document"/>
+								</Toolbar>
+							</headerToolbar>
+							
+						<html:div style="text-align:center">
+						
+							 <Button id="btn4" icon="sap-icon://pdf-attachment" type="Emphasized" text="Open Document" press="onOpenDoc">
+									  <layoutData>
+									  	<OverflowToolbarLayoutData moveToOverflow="false" />
+									  </layoutData>
+							  </Button>
+						 </html:div>
+
+						</Panel>
+							
+						<Panel id="panel3" width="auto" class="sapUiResponsiveMargin" backgroundDesign="Transparent" expandable="false">
+							<headerToolbar>
+								<Toolbar height="auto">
+					<!--				<Title text="Attachments"/> -->
+								</Toolbar>
+							</headerToolbar>
+							
+		
+									
+									
+						<smartTable:SmartTable id="Attachments" entitySet="AttSet" tableType="Table" useExportToExcel="true" useVariantManagement="false"
+								header="Attachments" enableCustomFilter="false" showRowCount="true" enableAutoBinding="true" tableBindingPath="TaskToAtt"
+								class="sapUiResponsiveContentPadding">
+							<!--	<Table id="Attach_table" width="auto" itemPress="onItemPress" class="sapUiResponsiveMargin" growing="true" growingScrollToLoad="true" backgroundDesign="Translucent">
+							-->	<Table id="Attach_table" width="auto"  class="sapUiResponsiveMargin" growing="true" growingScrollToLoad="true" backgroundDesign="Translucent"  noDataText="{i18n>attachmentTableNoData}">
+								
+								
+								<columns>
+
+				
+										<Column id="C11" width="auto" demandPopin="false" minScreenWidth="Tablet" visible="true"
+											customData:p13nData='\{"leadingProperty":"Num", "columnKey":"Num"}' class="myStyle">
+											<Text text="N." id="nameColumnTitle11"/>
+										</Column>
+										<Column id="C22" width="auto" visible="true"
+											customData:p13nData='\{"leadingProperty":"CompId", "columnKey":"CompId"}'>
+											<Text text="File name" id="nameColumnTitle22"/>
+										</Column>
+										
+										
+										
+											<Column id="C24" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="true"
+											customData:p13nData='\{"leadingProperty":"Descript", "columnKey":"Descript"}'>
+											<Text text="Description" id="nameColumnTitle24"/>
+										</Column>
+										
+											<Column id="C25" width="auto"  visible="true"
+											customData:p13nData='\{"leadingProperty":"CreaUser", "columnKey":"CreaUser"}'>
+											<Text text="Created by" id="nameColumnTitle25"/>
+										</Column>
+										
+											<Column id="C26" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="true"
+											customData:p13nData='\{"leadingProperty":"Date", "columnKey":"Date"}'>
+											<Text text="Date" id="nameColumnTitle26"/>
+										</Column>
+										
+										
+										
+										
+									</columns>
+									<items>
+									<!--	<ColumnListItem type="Active"> -->
+										<ColumnListItem  id="list" type="Navigation" press="handleLineItemPress" >	
+											
+
+											
+										<cells>
+												
+											</cells>
+											
+											<cells>
+												<ObjectIdentifier title="{Num}"/>
+											</cells>
+											
+											<cells>
+												<ObjectIdentifier title="{CompId}"/>
+											</cells>
+										
+											
+											<cells>
+												<ObjectIdentifier title="{Descript}"/>
+											</cells>
+											
+											<cells>
+												<ObjectIdentifier title="{CreaUser}"/>
+											</cells>
+											
+											<cells>
+												<ObjectIdentifier title="{Date}"/>
+											</cells>
+
+										</ColumnListItem>
+									</items>
+								</Table>
+								<smartTable:layoutData>
+									<FlexItemData growFactor="1" baseSize="0%"/>
+								</smartTable:layoutData>
+							</smartTable:SmartTable> 
+						</Panel>
+					
+					</content>
+				
+						
+				</IconTabFilter>
+				
+	
+				<IconTabFilter key="3" icon="sap-icon://comment" text="Comments">
+					<content>
+						
+						<Panel id="panel_comment" width="auto" class="sapUiResponsiveMargin" backgroundDesign="Transparent" expandable="false">
+							<headerToolbar>
+								<Toolbar height="auto">
+									<Title text="Comments"/>
+								</Toolbar>
+							</headerToolbar>
+								<html:div style="text-align:center">
+							<Button text="Add comment" icon="sap-icon://post" press="shareAddComment" type="Emphasized"/>
+							</html:div>
+                       </Panel>
+                       
+							<List id="commentList"
+								showSeparators="Inner"
+							    items="{/NoteSet}"
+							    noDataText="Nothing to show"
+						        backgroundDesign="Translucent">
+								<items>
+								<FeedListItem
+								    sender="{Sender}"
+								    timestamp="{Data}, {Ora}"
+								    info="{Descrizione}"
+									icon="sap-icon://employee"
+									iconDensityAware="false"
+									text="{Testo}"/>
+								</items>
+						
+							</List>
+	    			</content>
+				</IconTabFilter>
+				
+
+			</items>
+		</IconTabBar>
+		
+
+
+	
+                 <!-- <ComboBox items="{
+					path: '/UserSet',
+					sorter: { path: 'Name2' },
+					suspended: true
+				}" loadItems="onRequestLoad"
+				placeholder="Select a user...">
+                    <items>
+                      <core:Item key="{Uname}" text="{Name1} {Name2}"/>
+                    </items>
+                  </ComboBox>!-->
+		<footer>
+			<Toolbar id="footerToolbar">
+					
+	<!--	<OverflowToolbar id="footerToolbar">-->
+					<ToolbarSpacer/>
+
+					<Button id="btn1" type="Accept" text="Approve" press="showDialog">
+				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
+				  </Button>
+				  <Button id="btn2" type="Reject" text="Reject" press="showDialog">
+				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
+				   </Button>
+				  	<Button id="btn3" type="Default" text="Move" press="showPopover">
+
+				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
+				</Button>
+				</Toolbar>
+	<!--
+				<ToolbarSpacer/>
+				<Button id="shareButton" tooltip="{i18n>shareTooltip}" icon="sap-icon://action" press="onSharePress">
+					<dependents>
+						<ActionSheet id="shareSheet" showCancelButton="true" placement="Top">
+							<buttons>
+								<Button id="shareEmail" icon="sap-icon://email" text="{i18n>shareSendEmail}" press="onShareEmailPress"/>
+								<Button id="shareInJam" icon="sap-icon://jam" text="{i18n>shareOnJamTitle}" press="onShareInJamPress" visible="{FLP>/isShareInJamActive}"/>
+								<footerbar:AddBookmarkButton id="shareTile" appData="{ path: 'objectView>/saveAsTileTitle', formatter: '.formatter.shareTileData' }"/>
+							</buttons>
+						</ActionSheet>
+					</dependents>
+				</Button>
+				!-->
+
+		<!--		</OverflowToolbar>!-->
+		</footer>
+	</Page>
+</mvc:View>

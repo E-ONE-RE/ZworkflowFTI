@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:l="sap.ui.layout"
+   xmlns:core="sap.ui.core"
+   	xmlns:html="http://www.w3.org/1999/xhtml">
+
+		<Popover
+		title="Users"
+		class="sapUiContentPadding"
+		placement="Top"
+		verticalScrolling="false"
+		horizontalScrolling="false">
+		<content>
+			<ComboBox
+			id="combo"
+			width="auto"
+			class="sapUiResponsiveMargin"
+				items="{
+					path: '/UserSet',
+					sorter: { path: 'Name2' },
+					suspended: true
+				}"
+				loadItems="lazyLoadItems"
+				change="selectionChange"
+				placeholder="Search by surname...">
+				<core:ListItem key="{Uname}" text="{Name2} {Name1}"/>
+			</ComboBox>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button
+			     	type="Accept"
+					text="Ok"
+					press="actionTask"/>
+			   <Button
+			        type="Reject"
+					text="Cancel"
+					press="closePopover"/>
+			</Toolbar>
+		</footer>
+		</Popover>
+	</core:FragmentDefinition>
