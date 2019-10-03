@@ -102,7 +102,7 @@ OData.request
 			var sSelectedTaskid;
 			var sAction, sUser, sUname; //sUser e sUname rappresentano delle variabili di appoggio
 			//var  i, sPath, oTask, oTaskId; (variabili inutilizzate)
-			
+			var that = this;
 			oView = this.getView();
 			var oObject = oView.getBindingContext().getObject();
 		
@@ -197,6 +197,9 @@ OData.request
 						};
 						//var oView = this.getView();
 						//oModel = this.getModel(),
+						
+						this.showBusyIndicator(0);
+						
 						var oModel = this.getModel();
 						// lancio la function import creata sull'odata
 						oModel.callFunction("/ZWfAction", {
@@ -211,8 +214,11 @@ OData.request
 						console.log(oData);
 						console.log(response);
 		
-						// controllo che la funzione è andata a buon fine recuperando il risultato della function sap
+						// controllo che la funzione sia andata a buon fine recuperando il risultato della function sap
 						if (oData.Type == "S") {
+							
+							that.hideBusyIndicator();
+							
 							var msg = "Success: "+oData.Message+", "+sTypeAction;
 		        					sap.m.MessageToast.show(msg, { duration: 5000,
 		        					autoClose: true,
@@ -233,6 +239,10 @@ OData.request
 							oTable.getBinding("items").refresh();
 							sap.ui.controller("workflow.controller.Object").onNavBack(); //richiama una funzione di Object.Controller con questa sintassi
 						} else {
+							
+									that.hideBusyIndicator();
+								
+								
 							//richiama una funzione di Object.Controller con questa sintassi
 		
 									//		alert("Error: "+oData.Message); 
@@ -251,6 +261,8 @@ OData.request
 					}// END FUNCTION SUCCESS
 
 					function fnE(oError) {
+						
+							that.hideBusyIndicator();
 						console.log(oError);
 		
 						alert("Error in read: " + oError.message);
@@ -391,7 +403,7 @@ OData.request
 								initialFocus: null,
 								textDirection: sap.ui.core.TextDirection.Inherit,
 								details: 'Possible reasons:\n' +
-									'You are not connected to the internet, ' +
+									'You are not connected to the network, ' +
 									'a backend component is not available ' +
 									'or an underlying system is down. ' +
 									'Please contact your system administrator to get more informations.',
@@ -503,12 +515,13 @@ OData.request
 			this._showObject(oEvent.getSource());
 		},*/
 		
-		 // evento button per apertura pdf odc (SE) per apertura diretta
+		 // evento button per apertura pdf doc (SE) per apertura diretta
 		onOpenDoc: function(oEvent) {
 			//var OData = new sap.ui.mode.odata.ODataModel(); 
 		    //jQuery.sap.require("sap.ui.model.odata.datajs");
 			//var service = "http://10.126.72.12:50040"; // ECD SYSTEM
-			var service = "http://10.134.175.152:50000"; // GW SYSTEM
+	//		var service = "http://10.134.175.152:50000"; // GW SYSTEM
+			var service = "https://fiori.panariagroup.it"; // GW SYSTEM public dns ip 159.122.107.171
 			var oView = this.getView();
 			var oObject = oView.getBindingContext().getObject();
 			var oModel = this.getModel();
@@ -516,8 +529,11 @@ OData.request
             var sReadURI = oModel.sServiceUrl;
             
 		//	var sRead = "/PdfdocSet(ZWfProcid='" + oObject.ZWfProcid + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfDocument='" + oObject.ZWfDocument + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "')";
-			var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcid + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='')" + "/$value" ;
+		//	var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcid + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='')" + "/$value" ;
+			var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='',PLoioId='')" + "/$value" ;
+
 		 
+		 	
 			 var url = service + sReadURI + sRead;
 			 
 			 var win= window.open(url, '_blank');
@@ -606,13 +622,14 @@ OData.request
 		  var oModel = this.getModel();
 				
 		//  var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',PDocCount='" + oItem.Num + "')" + "/$value" ;
-		   	var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='" + oItem.Num + "')" + "/$value" ;
+		   	var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='" + oItem.Num + "',PLoioId='" + oItem.LoioId + "')" + "/$value" ;
 		 
 		//   window.open("http://10.126.72.12:50040/sap/opu/odata/SAP/ZWORKFLOW_SRV" + sRead );
 		   //var url = "http://10.126.72.12:50040/sap/opu/odata/SAP/ZWORKFLOW_SRV";
 		   
 		 //  	var service = "http://10.126.72.12:50040";
-		   	var service = "http://10.134.175.152:50000"; // GW SYSTEM
+		 //  	var service = "http://10.134.175.152:50000"; // GW SYSTEM
+		   	var service = "https://fiori.panariagroup.it"; // GW SYSTEM public dns ip 159.122.107.171
 			var sReadURI = oModel.sServiceUrl;
 
 			var url = service + sReadURI + sRead;
@@ -823,6 +840,31 @@ OData.request
 			}
 
 		},
+		
+		
+			//********* Funzioni per busyIndicator *********//
+			// Funzione per nascondere il Busy Indicator
+			hideBusyIndicator: function() {
+				sap.ui.core.BusyIndicator.hide();
+			},
+
+			// Funzione per mostrare il busyIndicator in caricamento
+			//	showBusyIndicator : function (iDuration, iDelay) {
+			showBusyIndicator: function(iDelay) {
+				sap.ui.core.BusyIndicator.show(iDelay);
+
+				/*	if (iDuration && iDuration > 0) {
+								if (this._sTimeoutId) {
+									jQuery.sap.clearDelayedCall(this._sTimeoutId);
+									this._sTimeoutId = null;
+								}
+				
+								this._sTimeoutId = jQuery.sap.delayedCall(iDuration, this, function() {
+									this.hideBusyIndicator();
+								});
+							}*/
+			},
+			//*********************************************//
 
 			/* =========================================================== */
 			/* internal methods                                            */

@@ -270,6 +270,11 @@
 											<Text text="Date" id="nameColumnTitle26"/>
 										</Column>
 										
+											<Column id="C27" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="true"
+											customData:p13nData='\{"leadingProperty":"LoioId", "columnKey":"LoioId"}'>
+											<Text text="LoioId" id="nameColumnTitle27"/>
+										</Column>
+										
 										
 										
 										
@@ -303,6 +308,10 @@
 											
 											<cells>
 												<ObjectIdentifier title="{Date}"/>
+											</cells>
+											
+												<cells>
+												<ObjectIdentifier title="{LoioId}"/>
 											</cells>
 
 										</ColumnListItem>
