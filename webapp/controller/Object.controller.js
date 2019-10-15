@@ -3,8 +3,12 @@ sap.ui.define([
 		"workflow/controller/BaseController",
 		"sap/ui/model/json/JSONModel",
 		"sap/ui/core/routing/History",
-		"workflow/model/formatter"
-	], function(BaseController, JSONModel, History, formatter, MessageToast, MessageStrip, 	MessageBox, Button, Dialog, Input, Label, SuggestionItems, Item, Template) {
+		"workflow/model/formatter",
+		"sap/ui/model/Filter", 
+		"sap/ui/model/FilterOperator",
+		'sap/m/Dialog',
+		"sap/ui/core/Fragment" 
+	], function(BaseController, JSONModel, History, formatter, Filter, FilterOperator, Dialog, MessageToast, MessageStrip, 	MessageBox, Button, Input, Label, SuggestionItems, Item, Template) {
 
 		"use strict";
 
@@ -95,6 +99,8 @@ OData.request
 		  */
 		/////////////////////////////////////////////////////////////////////  
 		actionTask: function() {
+		//var sValue = oEvent.getParameter("value");
+		//this.sKey = oEvent.getParameter("value"); //(SE) ripulisco key popover
 
 			var sButtonId;
 			var sTypeAction;
@@ -108,9 +114,10 @@ OData.request
 		
             ////////////////////////////////// (SE)
             //START - MOVE ACTION POPOVER CHECK 
-			if (this._oPopover) {
-				this._oPopover.close();
-				sap.ui.getCore().byId("combo").setValue("");
+		//	if (this._oPopover) {
+				if (this.sKey) {
+			//	this._oPopover.close();
+			//	sap.ui.getCore().byId("combo").setValue("");
 				sUname = this.sKey;
 			//	this.sButtonKey = undefined; //SE 31072017 ripulisco variabile OK-KO in caso di MOVE
 				
@@ -530,37 +537,46 @@ OData.request
             
 		//	var sRead = "/PdfdocSet(ZWfProcid='" + oObject.ZWfProcid + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfDocument='" + oObject.ZWfDocument + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "')";
 		//	var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcid + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='')" + "/$value" ;
-			var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='',PLoioId='')" + "/$value" ;
-
-		 
-		 	
-			 var url = service + sReadURI + sRead;
-			 
+			var sRead = "/PdfdocSet(ZWfDocument='" + oObject.ZWfDocument + "',ZWfProcid='" + oObject.ZWfProcid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "')";
+		//	var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='',PLoioId='')" + "/$value" ;
+		
+		
+		/*	 
 			 var win= window.open(url, '_blank');
 			 win.focus();
 
 						if(!win){
 							   alert("Popup blocked, please allow popup opening from your browser settings.");		                
         
-							   }
+							   }*/
 
 			 
-			/*	oModel.read( sRead, {
+				oModel.read( sRead, {
 				 
 				 	success: function (oData) {
 				 		console.log(oData); 
-				 		if (oData.url  != "") {
+				 		if (oData.PLoioId  !== "") {
 				 			
-				               if(!window.open(service + oData.url, '_blank')){
-							   alert("Popup blocked, please allow popup opening from your browser settings.");		                
+				 				var sReadOdata = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='',PLoioId='" + oData.PLoioId + "')" + "/$value" ;
+
+								var url = service + sReadURI + sReadOdata;
+			 
+				           //    if(!window.open(service + oData.url, '_blank')){
+				           
+				           	 var win= window.open(url, '_blank');
+							 win.focus();
+
+								if(!win){
+								alert("Popup blocked, please allow popup opening from your browser settings.");		                
         
-							   }
+								}
+								
 						}else{
 							   
-											   	jQuery.sap.require("sap.m.MessageBox");
+										jQuery.sap.require("sap.m.MessageBox");
 							            sap.m.MessageBox.show(
 									      "Error: No document available", {
-									          icon: sap.m.MessageBox.Icon.WARNING,
+									          icon: sap.m.MessageBox.Icon.ERROR,
 									          title: "Error",
 									          actions: [sap.m.MessageBox.Action.CLOSE]
 									          
@@ -586,7 +602,7 @@ OData.request
 					}	    
 					
 	
-				});*/
+				});
 			            
 		},	
 		
@@ -666,7 +682,92 @@ OData.request
 		 * 
 		 */
 
-		//Method to show the Popover Fragment
+
+		openTableDialogUsers: function(oEvent) {
+	
+			this.sButtonKey = oEvent.getSource().getId(); //mi salvo il valore chiave del bottone per la gestione dei conflitti in actionTask
+		
+	//	var oBackend = this.getBackendModel();
+	//		var oCurrentProduct = this.getView().getModel("orders").getProperty("/currentProduct");
+			
+				var oModel = this.getModel();
+				var that = this;
+				oModel.read("/UserSet", {
+					method: "GET",
+					
+								success: function(oData, oResponse) {
+								var oSuggestionRowsModel = new sap.ui.model.json.JSONModel(oData);
+								that.getView().setModel(oSuggestionRowsModel, "users");
+								
+									if (!that._oDialog) {
+											that._oDialog = sap.ui.xmlfragment("workflow.view.TableDialogUsers", that, "workflow.controller.Object");
+										}
+										
+										that.getView().addDependent(that._oDialog);
+										// toggle compact style
+										jQuery.sap.syncStyleClass("sapUiSizeCompact", that.getView(), that._oDialog);
+										that._oDialog.getAggregation("_dialog").getSubHeader().getContentMiddle()[0].setPlaceholder("Search by Username, Name, Surname");
+							
+										that._oDialog.open();
+						
+								},
+
+						error: function(oError) {
+							
+							jQuery.sap.require("sap.m.MessageBox");
+							sap.m.MessageBox.show("Something went wrong! Please try later.", {
+								icon: sap.m.MessageBox.Icon.ERROR,
+								title: "Error",
+								onClose: null,
+								styleClass: "sapUiSizeCompact",
+								initialFocus: null,
+								textDirection: sap.ui.core.TextDirection.Inherit,
+								details: 'Possible reasons:\n' +
+									'You are not connected to the network, ' +
+									'a backend component is not available ' +
+									'or an underlying system is down. ' +
+									'Please contact your system administrator to get more informations.',
+								contentWidth: "100px"
+							});
+							
+						}
+
+					});
+
+		},
+		
+	
+		
+			handleSearchTableDialogUsers: function(oEvent) {
+			var sValue = oEvent.getParameter("value");
+	//		var oFilterUname = new Filter("Uname", sap.ui.model.FilterOperator.Contains, sValue);
+			
+	//		var oFilterName1 = new Filter("Name1", sap.ui.model.FilterOperator.Contains, sValue);
+			var InputFilter = new sap.ui.model.Filter({
+				  filters: [
+				  new Filter("Uname", sap.ui.model.FilterOperator.Contains, sValue),
+				 new Filter("Name1", sap.ui.model.FilterOperator.Contains, sValue),
+				  new Filter("Name2", sap.ui.model.FilterOperator.Contains, sValue)
+				  ],
+				  and: false
+				});
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter([InputFilter]);
+
+		},
+		
+			handleCloseTableDialogUsers: function(oEvent) {
+			var oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter([]);
+	//		var part = this.getView().byId("creaOrdinePopupProdottoPartita");
+	//		var aContexts = oEvent.getParameter("selectedContexts");
+	//		if (aContexts && aContexts.length) {
+	//		 part.setValue(aContexts.map(function(oContext) { return oContext.getObject().Charg; }));
+	//		}
+		},
+		
+		//Method to show the Popover Fragment // sostiuito da handleSearchTableDialogUsers
+		// per problema ricerca su smartphone
 		showPopover: function(oEvent) {
 			var that = this;
 			this.sKey = undefined; //(SE) ripulisco key popover
@@ -691,25 +792,67 @@ OData.request
 				 * le seguenti righe di codice servono per disabilitare
 				 * l'autocomplete e l'autoselect.
 				 */
-				var oComboBox = sap.ui.getCore().byId("combo");
+			/*	var oComboBox = sap.ui.getCore().byId("combo");
 				oComboBox.addEventDelegate({
 					onkeydown: function(oEvent) {
 							if (oEvent.which == 8) {
 								oComboBox.setValue("");
 							}
 					}
-				});
+				});*/
 	
 
 		},
 
 		//Show confirmation dialog
 		showDialog: function(oEvent) {
+			var oView = this.getView();
 			var that = this;
 			this.sKey = undefined; //(SE) ripulisco key popover
 			this._oPopover = undefined; //(SE) ripulisco popover
 			this.sButtonKey = oEvent.getSource().getId(); //mi salvo il valore chiave del bottone per la gestione dei conflitti in actionTask
-			if (!that.Dialog) {
+			
+			var sMessage = "";
+			
+				if (this.sButtonKey == oView.byId("btn1").getId()) {
+							sMessage = "approve";
+
+						} else if (this.sButtonKey == oView.byId("btn2").getId()) {
+						sMessage = "reject";
+						//(SE)
+						}
+						
+			var dialog = new Dialog({
+					title: 'Warning',
+					type: 'Message',
+					state: 'Warning',
+					content: new sap.m.FormattedText({
+						htmlText: "Are you sure you want to " + sMessage + "?"
+					}),
+					beginButton: new sap.m.Button("Move", {
+						text: 'Yes',
+						type: 'Accept',
+						press: function() {
+							dialog.close();
+							that.actionTask();
+						}
+					}),
+					endButton: new sap.m.Button({
+						text: 'Cancel',
+						type: 'Reject',
+						press: function() {
+							dialog.close();
+							this.sButtonKey = undefined; //per controllare i conflitti in actionTask N.B.
+						}
+					}),
+					afterClose: function() {
+						dialog.destroy();
+					}
+				});
+
+				dialog.open();
+			
+		/*	if (!that.Dialog) {
 
 				that.Dialog = sap.ui.xmlfragment("workflow.view.Dialog", this, "workflow.controller.Object");
 				//to get access to the global model
@@ -718,7 +861,66 @@ OData.request
 					that.Dialog.setStretch(true);
 				}
 			}
-			that.Dialog.open();
+			that.Dialog.open();*/
+		},
+		
+		
+		showMoveDialog: function(oEvent) {
+			
+			var sMessage = "";
+			var aContexts = oEvent.getParameter("selectedContexts");
+			if (aContexts && aContexts.length) {
+			//	MessageToast.show("You have chosen " + aContexts.map(function(oContext) { return oContext.getObject().Name; }).join(", "));
+			
+				this.sKey = aContexts.map(function(oContext) { return oContext.getObject().Uname; });
+	//	
+			}
+			sMessage = this.sKey;
+			var that = this;
+			
+			var dialog = new Dialog({
+					title: 'Warning',
+					type: 'Message',
+					state: 'Warning',
+					content: new sap.m.FormattedText({
+						htmlText: "Are you sure you want to move this task to " + sMessage + "?"
+					}),
+					beginButton: new sap.m.Button("Move", {
+						text: 'Yes',
+						type: 'Accept',
+						press: function() {
+							dialog.close();
+							that.actionTask();
+						}
+					}),
+					endButton: new sap.m.Button({
+						text: 'Cancel',
+						type: 'Reject',
+						press: function() {
+							dialog.close();
+							this.sButtonKey = undefined; //per controllare i conflitti in actionTask N.B.
+							this.sKey = undefined;
+						}
+					}),
+					afterClose: function() {
+						dialog.destroy();
+					}
+				});
+
+				dialog.open();
+				
+				
+			
+		/*		if (!that.Dialog) {
+
+				that.Dialog = sap.ui.xmlfragment("workflow.view.MoveDialog", this, "workflow.controller.Object");
+				//to get access to the global model
+				this.getView().addDependent(that.Dialog);
+				if (sap.ui.Device.system.phone) {
+					that.Dialog.setStretch(true);
+				}
+			}
+			that.Dialog.open();*/
 		},
 		
 			//Comments Dialog

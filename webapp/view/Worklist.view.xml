@@ -17,6 +17,8 @@ xmlns:html="http://www.w3.org/1999/xhtml">
                 type="Emphasized"/>
   </headerContent>
   
+   <PullToRefresh id="pullToRefresh" visible="{device>/support/touch}" refresh="onPullToRefresh"/>
+   
 		<content>
 			<IconTabBar
 				id="iconTab"
@@ -74,7 +76,7 @@ xmlns:html="http://www.w3.org/1999/xhtml">
 						 	<Text text="{i18n>tableUserColumnTitle}" id="userColumnTitle"/>
 						</Column>
 						
-						<Column id="ActivityColumn" demandPopin="false"
+						<Column id="ActivityColumn" demandPopin="true"
 		    						minScreenWidth="Tablet">
 						 	<Text text="{i18n>tableActivityColumnTitle}" id="ActivityColumnTitle"/>
 						</Column>

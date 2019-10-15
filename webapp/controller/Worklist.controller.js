@@ -103,7 +103,7 @@ sap.ui.define([
 
 			var msg = "Updated";
 			sap.m.MessageToast.show(msg, {
-				duration: 1500, // default
+				duration: 3000, // default
 				animationTimingFunction: "ease", // default
 				animationDuration: 1000, // default
 				closeOnBrowserNavigation: true // default
@@ -161,7 +161,9 @@ sap.ui.define([
 		
 			onPress : function (oEvent) {
 				// The source is the list item that got pressed
+					this.showBusyIndicator(0);
 				this._showObject(oEvent.getSource());
+				this .hideBusyIndicator();
 			},
 
 	/**
@@ -242,6 +244,56 @@ sap.ui.define([
 
 			},
 
+
+				onPullToRefresh: function() {
+
+				var oTable = this.byId("table");
+				oTable.getBinding("items").refresh();
+
+				/*	var msg = "Updated";
+					sap.m.MessageToast.show(msg, {
+						duration: 1500, // default
+						animationTimingFunction: "ease", // default
+						animationDuration: 1000, // default
+						closeOnBrowserNavigation: true // default
+					});*/
+
+				this.getView().byId("pullToRefresh").hide();
+				
+				var msg = "Updated";
+				sap.m.MessageToast.show(msg, {
+				duration: 3000, // default
+				animationTimingFunction: "ease", // default
+				animationDuration: 1000, // default
+				closeOnBrowserNavigation: true // default
+			});
+			
+			},
+			
+			
+			//********* Funzioni per busyIndicator *********//
+			// Funzione per nascondere il Busy Indicator
+			hideBusyIndicator: function() {
+				sap.ui.core.BusyIndicator.hide();
+			},
+
+			// Funzione per mostrare il busyIndicator in caricamento
+			//	showBusyIndicator : function (iDuration, iDelay) {
+			showBusyIndicator: function(iDelay) {
+				sap.ui.core.BusyIndicator.show(iDelay);
+
+				/*	if (iDuration && iDuration > 0) {
+								if (this._sTimeoutId) {
+									jQuery.sap.clearDelayedCall(this._sTimeoutId);
+									this._sTimeoutId = null;
+								}
+				
+								this._sTimeoutId = jQuery.sap.delayedCall(iDuration, this, function() {
+									this.hideBusyIndicator();
+								});
+							}*/
+			},
+			//*********************************************//
 			/**
 			 * Event handler for refresh event. Keeps filter, sort
 			 * and group settings and refreshes the list binding.

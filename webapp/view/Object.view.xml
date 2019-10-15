@@ -53,39 +53,39 @@
 									<columns>
 										<Column id="C1" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfUtente", "columnKey":"ZWfUtente"}' class="myStyle">
-											<Text text="Utente" id="nameColumnTitle1"/>
+											<Text text="User" id="nameColumnTitle1"/>
 										</Column>
 										<Column id="C2" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZDtStart", "columnKey":"ZDtStart"}'>
-											<Text text="Data Inizio" id="nameColumnTitle2"/>
+											<Text text="Start Date" id="nameColumnTitle2"/>
 										</Column>
 										<Column id="C3" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZHhStart", "columnKey":"ZHhStart"}'>
-											<Text text="Ora inizio" id="nameColumnTitle3"/>
+											<Text text="Start Time" id="nameColumnTitle3"/>
 										</Column>
 										<Column id="C4" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfText", "columnKey":"ZWfText"}'>
-											<Text text="Descrizione attività" id="nameColumnTitle4"/>
+											<Text text="Activity" id="nameColumnTitle4"/>
 										</Column>
 										<Column id="C5" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZDtStop", "columnKey":"ZDtStop"}'>
-											<Text text="Data fine" id="nameColumnTitle5"/>
+											<Text text="Stop Date" id="nameColumnTitle5"/>
 										</Column>
 										<Column id="C6" width="auto" minScreenWidth="Tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZHhStop", "columnKey":"ZHhStop"}'>
-											<Text text="Ora fine" id="nameColumnTitle6"/>
+											<Text text="Stop Time" id="nameColumnTitle6"/>
 										</Column>
 										<Column id="C7" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfProcid", "columnKey":"ZWfProcid"}'>
-											<Text text="Id Processo" id="nameColumnTitle7"/>
+											<Text text="Process Id" id="nameColumnTitle7"/>
 										</Column>
 										<Column id="C8" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfTaskid", "columnKey":"ZWfTaskid"}'>
-											<Text text="Id Task" id="nameColumnTitle8"/>
+											<Text text="Task Id " id="nameColumnTitle8"/>
 										</Column>
 										<Column id="C9" width="auto" minScreenWidth="phone" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfAzione", "columnKey":"ZWfAzione"}'>
-											<Text text="Azione" id="nameColumnTitle9"/>
+											<Text text="Action" id="nameColumnTitle9"/>
 										</Column>
 									</columns>
 									<items>
@@ -244,10 +244,11 @@
 								<columns>
 
 				
-										<Column id="C11" width="auto" demandPopin="false" minScreenWidth="Tablet" visible="true"
+										<Column id="C11" width="auto" demandPopin="false" minScreenWidth="Tablet" visible="false"
 											customData:p13nData='\{"leadingProperty":"Num", "columnKey":"Num"}' class="myStyle">
 											<Text text="N." id="nameColumnTitle11"/>
 										</Column>
+										
 										<Column id="C22" width="auto" visible="true"
 											customData:p13nData='\{"leadingProperty":"CompId", "columnKey":"CompId"}'>
 											<Text text="File name" id="nameColumnTitle22"/>
@@ -260,6 +261,11 @@
 											<Text text="Description" id="nameColumnTitle24"/>
 										</Column>
 										
+											<Column id="C244" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="true"
+											customData:p13nData='\{"leadingProperty":"Mimetype", "columnKey":"Mimetype"}'>
+											<Text text="Type" id="nameColumnTitle244"/>
+										</Column>
+										
 											<Column id="C25" width="auto"  visible="true"
 											customData:p13nData='\{"leadingProperty":"CreaUser", "columnKey":"CreaUser"}'>
 											<Text text="Created by" id="nameColumnTitle25"/>
@@ -270,7 +276,7 @@
 											<Text text="Date" id="nameColumnTitle26"/>
 										</Column>
 										
-											<Column id="C27" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="true"
+											<Column id="C27" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="false"
 											customData:p13nData='\{"leadingProperty":"LoioId", "columnKey":"LoioId"}'>
 											<Text text="LoioId" id="nameColumnTitle27"/>
 										</Column>
@@ -302,9 +308,15 @@
 												<ObjectIdentifier title="{Descript}"/>
 											</cells>
 											
+												<cells>
+												<ObjectIdentifier title="{Mimetype}"/>
+											</cells>
+											
 											<cells>
 												<ObjectIdentifier title="{CreaUser}"/>
 											</cells>
+											
+										
 											
 											<cells>
 												<ObjectIdentifier title="{Date}"/>
@@ -391,7 +403,10 @@
 				  <Button id="btn2" type="Reject" text="Reject" press="showDialog">
 				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
 				   </Button>
-				  	<Button id="btn3" type="Default" text="Move" press="showPopover">
+	<!--			  	<Button id="btn3" type="Default" text="Move" press="showPopover">
+-->
+				<Button id="btn3" type="Default" text="Move" press="openTableDialogUsers">
+
 
 				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
 				</Button>

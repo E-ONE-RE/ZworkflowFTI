@@ -13,18 +13,29 @@
 		<content>
 			<ComboBox
 			id="combo"
-			width="auto"
+			width= "300px"
 			class="sapUiResponsiveMargin"
 				items="{
 					path: '/UserSet',
-					sorter: { path: 'Name2' },
-					suspended: true
+					sorter: { path: 'Uname' }
+			
 				}"
 				loadItems="lazyLoadItems"
 				change="selectionChange"
-				placeholder="Search by surname...">
-				<core:ListItem key="{Uname}" text="{Name2} {Name1}"/>
+				placeholder="Search by username..."
+				editable ="false" >
+				<core:ListItem key="{Uname}" text="{Uname} - {Name2} {Name1} "/>
 			</ComboBox>
+			
+			<SearchField id="productSearchField" placeholder="Search" showRefreshButton="true" showSearchButton="true" visible="true" width="100%" search="onSearch"
+								enableSuggestions="true" suggestionItems="{path: '/UserSet', sorter:{ path: 'Uname' }}" suggest="onSuggest">
+								<suggestionItems>
+									<SuggestionItem text="{Uname}" description="{Name1}" key="{Uname}"/>
+								</suggestionItems>
+							</SearchField>
+							
+						
+							
 		</content>
 		<footer>
 			<Toolbar>
