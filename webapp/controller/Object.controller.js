@@ -550,7 +550,8 @@ OData.request
         
 							   }*/
 
-			 
+// eseguo prima chiamata backend per generazione e recupero id del doc, se questa va a buon fine 
+// apro lo stream diretto del file 
 				oModel.read( sRead, {
 				 
 				 	success: function (oData) {
@@ -576,7 +577,7 @@ OData.request
 										jQuery.sap.require("sap.m.MessageBox");
 							            sap.m.MessageBox.show(
 									      "Error: No document available", {
-									          icon: sap.m.MessageBox.Icon.ERROR,
+									          icon: sap.m.MessageBox.Icon.WARNING,
 									          title: "Error",
 									          actions: [sap.m.MessageBox.Action.CLOSE]
 									          
@@ -593,7 +594,7 @@ OData.request
 						jQuery.sap.require("sap.m.MessageBox");
 			            sap.m.MessageBox.show(
 					      "Error: No document available", {
-					          icon: sap.m.MessageBox.Icon.WARNING,
+					          icon: sap.m.MessageBox.Icon.ERROR,
 					          title: "Error",
 					          actions: [sap.m.MessageBox.Action.CLOSE]
 					          
@@ -638,6 +639,14 @@ OData.request
 		  var oModel = this.getModel();
 				
 		//  var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',PDocCount='" + oItem.Num + "')" + "/$value" ;
+		if (oItem.Num === undefined) {
+			oItem.Num = '';
+		}
+		
+			if (oItem.LoioId === undefined) {
+			oItem.LoioId = '';
+		}
+		
 		   	var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',ZWfTaskid='" + oObject.ZWfTaskid + "',ZWfTipodoc='" + oObject.ZWfTipodoc + "',PDocCount='" + oItem.Num + "',PLoioId='" + oItem.LoioId + "')" + "/$value" ;
 		 
 		//   window.open("http://10.126.72.12:50040/sap/opu/odata/SAP/ZWORKFLOW_SRV" + sRead );

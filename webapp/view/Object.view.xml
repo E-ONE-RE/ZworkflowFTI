@@ -244,7 +244,7 @@
 								<columns>
 
 				
-										<Column id="C11" width="auto" demandPopin="false" minScreenWidth="Tablet" visible="false"
+										<Column id="C11" width="auto" demandPopin="false" minScreenWidth="Tablet" visible="true"
 											customData:p13nData='\{"leadingProperty":"Num", "columnKey":"Num"}' class="myStyle">
 											<Text text="N." id="nameColumnTitle11"/>
 										</Column>
@@ -276,7 +276,7 @@
 											<Text text="Date" id="nameColumnTitle26"/>
 										</Column>
 										
-											<Column id="C27" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="false"
+											<Column id="C27" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="true"
 											customData:p13nData='\{"leadingProperty":"LoioId", "columnKey":"LoioId"}'>
 											<Text text="LoioId" id="nameColumnTitle27"/>
 										</Column>
