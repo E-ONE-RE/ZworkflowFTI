@@ -616,11 +616,11 @@ OData.request
     //non utilizzata
        onItemPress: function(oEvent){
        	
-		       	 oEvent.getSource().getBindingContext().getProperty("Num");
+		       	 //oEvent.getSource().getBindingContext().getProperty("Num");
 		       	 //Give the row data which are visible in the screen 
 		 //var oSelectedItem = sap.ui.getCore().byId("Attach_table").getSelectedItems(); 
 		  
-		//       	this.byId("Attach_table").getTable().attachItemPress(this.handleRowPress);
+		//       	this.byId("Attach_table").getTable().attachItemPress(this.handleLineItemPress);
 		//          var msg = "This is a test of itemPress!";
 		//          sap.m.MessageToast.show(msg);
     },
@@ -629,15 +629,14 @@ OData.request
     handleLineItemPress : function(evt) {
 	    //console.log('evt.getSource: ' + evt.getSource());
 	    //console.log('evt.getBindingContext: ' + evt.getSource().getBindingContext());
-		//var oItem = evt.getParameter("Num").getBindingContext().getObject();
+		//var oItem2 = evt.getParameter("Num").getBindingContext().getObject();
 		//NB: if using standard sap.ui.table.Table, use: 
+	
+		var oModel = this.getModel();
+		var oView = this.getView();
 		var oItem = evt.getSource().getBindingContext().getObject(); 
-		//console.log(oItem); //prints the JSON for your selected table row
-	 
-		  var oView = this.getView();
-		  var oObject = oView.getBindingContext().getObject();
-		  var oModel = this.getModel();
-				
+		var oObject = oView.getBindingContext().getObject();
+
 		//  var sRead = "/PDFSet(PDoc='" + oObject.ZWfDocument + "',PProc='" + oObject.ZWfProcesso + "',PDocCount='" + oItem.Num + "')" + "/$value" ;
 		if (oItem.Num === undefined) {
 			oItem.Num = '';
