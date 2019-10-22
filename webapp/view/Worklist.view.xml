@@ -68,27 +68,27 @@ xmlns:html="http://www.w3.org/1999/xhtml">
 				</headerToolbar>
 						<columns>
 						<Column id="docColumn" >
-							<Text text="{i18n>tableDocColumnTitle}" id="docColumnTitle"/>
+							<ObjectIdentifier title="{i18n>tableDocColumnTitle}" id="docColumnTitle"/>
 						</Column>
 						
 						<Column id="userColumn"  demandPopin="false"
 		    						minScreenWidth="Tablet">
-						 	<Text text="{i18n>tableUserColumnTitle}" id="userColumnTitle"/>
+						 	<ObjectIdentifier title="{i18n>tableUserColumnTitle}" id="userColumnTitle"/>
 						</Column>
 						
 						<Column id="ActivityColumn" demandPopin="true"
 		    						minScreenWidth="Tablet">
-						 	<Text text="{i18n>tableActivityColumnTitle}" id="ActivityColumnTitle"/>
+						 	<ObjectIdentifier title="{i18n>tableActivityColumnTitle}" id="ActivityColumnTitle"/>
 						</Column>
 						
 						<Column id="procidColumn"  demandPopin="false"
 		    						minScreenWidth="Tablet">
-							<Text text="{i18n>tableProcidColumnTitle}" id="procidColumnTitle"/>
+							<ObjectIdentifier title="{i18n>tableProcidColumnTitle}" id="procidColumnTitle"/>
 						</Column>
 						
 						<Column id="taskidColumn"  demandPopin="false"
 		    						minScreenWidth="Tablet">
-							<Text text="{i18n>tableTaskidColumnTitle}" id="taskidColumnTitle"/>
+							<ObjectIdentifier title="{i18n>tableTaskidColumnTitle}" id="taskidColumnTitle"/>
 						</Column>
 						
 						
@@ -106,20 +106,20 @@ xmlns:html="http://www.w3.org/1999/xhtml">
 						
 						<Column id="startDateColumn" demandPopin="true"
 		    						minScreenWidth="Tablet">
-							<Text text="{i18n>tableStartDateColumnTitle}" id="StartDateColumnTitle"/>
+							<ObjectIdentifier title="{i18n>tableStartDateColumnTitle}" id="StartDateColumnTitle"/>
 						</Column>
 							
 						<Column id="unitNumberColumn" hAlign="Right">
-						   <Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
+						   <ObjectIdentifier title="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
 						</Column>
 						
 						<Column id="currencyColumn" hAlign="Left" demandPopin="false"
 		    						 minScreenWidth="Tablet">
-								<Text text="{i18n>tableCurrencyColumnTitle}" id="currencyColumnTitle"/>
+								<ObjectIdentifier title="{i18n>tableCurrencyColumnTitle}" id="currencyColumnTitle"/>
 						</Column>
 						
 						  <Column id="statusColumn">
-								<Text text="{i18n>tableStatusColumnTitle}" id="StatusColumnTitle"/>
+								<ObjectIdentifier title="{i18n>tableStatusColumnTitle}" id="StatusColumnTitle"/>
 						</Column>
 					
 			</columns>

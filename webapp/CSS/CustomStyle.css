@@ -24,11 +24,23 @@
     border-top: 1pt solid rgba(40, 105, 227, 0.6);
 }
 
+
 #application-Test-url-component---object--Table2-listUl,
 #application-Test-url-component---object--Attach_table-listUl,
 #application-Test-url-component---object--Table3-listUl {
     border: 1px solid rgba(40, 105, 227, 0.6);
+    
 }
+
+/* SE
+.democlass
+{
+	 font-size:0.5rem !important;
+}
+
+*/
+
+
 
 td[aria-describedby = application-zworkflow-display-component---object--nameColumnTitle9] {
     font-style: italic;
@@ -93,14 +105,20 @@ Per richiamare il file di stile CSS è stata aggiunta una include al component.j
     border-top: 1pt solid rgba(40, 105, 227, 0.6);
 }
 
+
+
+
+
 #application-ZworkflowFTI-display-component---object--Table2-listUl,
 #application-ZworkflowFTI-display-component---object--Attach_table-listUl,
 #application-ZworkflowFTI-display-component---object--Table3-listUl {
     border: 1px solid rgba(40, 105, 227, 0.6);
+   
 }
 
 td[aria-describedby = application-Zworkflow-display-component---object--nameColumnTitle9] {
     font-style: italic;
+  
 }
 
 #application-ZworkflowFTI-display-component---object--iconTab2--header-head {
