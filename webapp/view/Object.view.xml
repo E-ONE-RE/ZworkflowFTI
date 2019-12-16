@@ -35,6 +35,17 @@
 				<IconTabFilter key="1" icon="sap-icon://hint" text="Informations">
 
 					<content>
+						
+				<!--		 <html:style>
+
+                				.myText {
+
+									background-color:teal;
+
+                                 }
+
+        				 </html:style>-->
+          
 	<html:br>
 		
 	</html:br>
@@ -51,68 +62,70 @@
 								class="sapUiResponsiveContentPadding">
 								<Table id="Table2" width="auto" class="sapUiResponsiveMargin" growing="true" growingScrollToLoad="true" backgroundDesign="Translucent">
 									<columns>
-										<Column id="C1" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
+										<Column id="C1" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfUtente", "columnKey":"ZWfUtente"}' class="myStyle">
-											<Text text="Utente" id="nameColumnTitle1"/>
+											<ObjectIdentifier title="User" id="nameColumnTitle1"/>
 										</Column>
 										<Column id="C2" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZDtStart", "columnKey":"ZDtStart"}'>
-											<Text text="Data Inizio" id="nameColumnTitle2"/>
+											<ObjectIdentifier title="Start Date" id="nameColumnTitle2"/>
 										</Column>
 										<Column id="C3" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZHhStart", "columnKey":"ZHhStart"}'>
-											<Text text="Ora inizio" id="nameColumnTitle3"/>
+											<ObjectIdentifier title="Start Time" id="nameColumnTitle3"/>
 										</Column>
 										<Column id="C4" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfText", "columnKey":"ZWfText"}'>
-											<Text text="Descrizione attività" id="nameColumnTitle4"/>
+											<ObjectIdentifier title="Activity" id="nameColumnTitle4"/>
 										</Column>
 										<Column id="C5" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZDtStop", "columnKey":"ZDtStop"}'>
-											<Text text="Data fine" id="nameColumnTitle5"/>
+											<ObjectIdentifier title="Stop Date" id="nameColumnTitle5"/>
 										</Column>
-										<Column id="C6" width="auto" minScreenWidth="Tablet" demandPopin="false" visible="true"
+										<Column id="C6" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZHhStop", "columnKey":"ZHhStop"}'>
-											<Text text="Ora fine" id="nameColumnTitle6"/>
+											<ObjectIdentifier title="Stop Time" id="nameColumnTitle6"/>
 										</Column>
-										<Column id="C7" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
+											<Column id="C7" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfProcid", "columnKey":"ZWfProcid"}'>
-											<Text text="Id Processo" id="nameColumnTitle7"/>
+											<ObjectIdentifier title="Process Id" id="nameColumnTitle7"/>
 										</Column>
+									
+									
 										<Column id="C8" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfTaskid", "columnKey":"ZWfTaskid"}'>
-											<Text text="Id Task" id="nameColumnTitle8"/>
+											<ObjectIdentifier title="Task Id " id="nameColumnTitle8"/>
 										</Column>
 										<Column id="C9" width="auto" minScreenWidth="phone" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfAzione", "columnKey":"ZWfAzione"}'>
-											<Text text="Azione" id="nameColumnTitle9"/>
+											<ObjectIdentifier title="Action" id="nameColumnTitle9"/>
 										</Column>
 									</columns>
 									<items>
 										<ColumnListItem>
 											<cells>
-												<ObjectIdentifier title="{ZWfUtente}"/>
+												<ObjectIdentifier title="{ZWfUtente}" />
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{path: 'ZDtStart', formatter: '.formatter.formatDate'}"/>
+												<Text text="{path: 'ZDtStart', formatter: '.formatter.formatDate'}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{path: 'ZHhStart', formatter: '.formatter.formatTime'}"/>
+												<Text text="{path: 'ZHhStart', formatter: '.formatter.formatTime'}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{ZWfText}"/>
+												<Text text="{ZWfText}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{path: 'ZDtStop', formatter: '.formatter.formatDate'}"/>
+												<Text text="{path: 'ZDtStop', formatter: '.formatter.formatDate'}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{path: 'ZHhStop', formatter: '.formatter.formatTime'}"/>
+												<Text text="{path: 'ZHhStop', formatter: '.formatter.formatTime'}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{ZWfProcid}"/>
+												<Text text="{ZWfProcid}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{ZWfTaskid}"/>
+												<Text text="{ZWfTaskid}"/>
 											</cells>
 											<cells>
 												
@@ -138,57 +151,63 @@
 								class="sapUiResponsiveContentPadding">
 								<Table id="Table3" width="auto" class="sapUiResponsiveMargin" growing="true" growingScrollToLoad="true" backgroundDesign="Translucent">
 									<columns>
+										
+										<Column id="col3" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"ZWfUser", "columnKey":"ZWfUser"}'>
+											<ObjectIdentifier title="User" id="nameC3"/>
+										</Column>
+										
 										<Column id="col1" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfStep", "columnKey":"ZWfStep"}'>
-											<Text text="Step" id="nameC1"/>
+											<ObjectIdentifier title="Step" id="nameC1"/>
 										</Column>
-										<Column id="col2" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
+										<Column id="col2" width="auto" minScreenWidth="tablet" demandPopin="false" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfSubop", "columnKey":"ZWfSubop"}'>
-											<Text text="Sub operation" id="nameC2"/>
+											<ObjectIdentifier title="Sub operation" id="nameC2"/>
 										</Column>
-										<Column id="col3" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
-											customData:p13nData='\{"leadingProperty":"ZWfUser", "columnKey":"ZWfUser"}'>
-											<Text text="User" id="nameC3"/>
-										</Column>
+										
 										<Column id="col4" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfText", "columnKey":"ZWfText"}'>
-											<Text text="Activity Description" id="nameC4"/>
+											<ObjectIdentifier title="Activity Description" id="nameC4"/>
 										</Column>
 										<Column id="col5" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfStepOk", "columnKey":"ZWfStepOk"}'>
-											<Text text="Next Step" id="nameC5"/>
+											<ObjectIdentifier title="Next Step" id="nameC5"/>
 										</Column>
 										<Column id="col6" width="auto" minScreenWidth="phone" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfStepKo", "columnKey":"ZWfStepKo"}'>
-											<Text text="Previous Step" id="nameC6"/>
+											<ObjectIdentifier title="Previous Step" id="nameC6"/>
 										</Column>
 										<Column id="col7" width="auto" minScreenWidth="tablet" demandPopin="true" visible="true"
 											customData:p13nData='\{"leadingProperty":"ZWfSkip", "columnKey":"ZWfSkip"}'>
-											<Text text="Skip" id="nameC7"/>
+											<ObjectIdentifier title="Skip" id="nameC7"/>
 										</Column>
 									</columns>
 									<items>
 										<ColumnListItem>
-											<cells>
-												<ObjectIdentifier title="{ZWfStep}"/>
-											</cells>
-											<cells>
-												<ObjectIdentifier title="{ZWfSubop}"/>
-											</cells>
-											<cells>
+												<cells>
 												<ObjectIdentifier title="{ZWfUser}"/>
 											</cells>
+											
 											<cells>
-												<ObjectIdentifier title="{ZWfText}"/>
+											<!--	<ObjectIdentifier title="{ZWfStep}" class="myText"/>-->
+												<Text text="{ZWfStep}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{ZWfStepOk}"/>
+												<Text text="{ZWfSubop}"/>
+											</cells>
+										
+											<cells>
+												<Text text="{ZWfText}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{ZWfStepKo}"/>
+												<Text text="{ZWfStepOk}"/>
 											</cells>
 											<cells>
-												<ObjectIdentifier title="{ZWfSkip}"/>
+												<Text text="{ZWfStepKo}"/>
+											</cells>
+											<cells>
+												<Text text="{ZWfSkip}"/>
 											</cells>
 										</ColumnListItem>
 									</items>
@@ -244,30 +263,41 @@
 								<columns>
 
 				
-										<Column id="C11" width="auto" demandPopin="false" minScreenWidth="Tablet" visible="true"
+										<Column id="C11" width="auto" demandPopin="false" minScreenWidth="Desktop" visible="true"
 											customData:p13nData='\{"leadingProperty":"Num", "columnKey":"Num"}' class="myStyle">
-											<Text text="N." id="nameColumnTitle11"/>
+											<ObjectIdentifier title="N." id="nameColumnTitle11"/>
 										</Column>
+										
 										<Column id="C22" width="auto" visible="true"
 											customData:p13nData='\{"leadingProperty":"CompId", "columnKey":"CompId"}'>
-											<Text text="File name" id="nameColumnTitle22"/>
+											<ObjectIdentifier title="File name" id="nameColumnTitle22"/>
 										</Column>
 										
 										
 										
 											<Column id="C24" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="true"
 											customData:p13nData='\{"leadingProperty":"Descript", "columnKey":"Descript"}'>
-											<Text text="Description" id="nameColumnTitle24"/>
+											<ObjectIdentifier title="Description" id="nameColumnTitle24"/>
+										</Column>
+										
+											<Column id="C244" width="auto" demandPopin="true" visible="true"
+											customData:p13nData='\{"leadingProperty":"Mimetype", "columnKey":"Mimetype"}'>
+											<ObjectIdentifier title="Type" id="nameColumnTitle244"/>
 										</Column>
 										
 											<Column id="C25" width="auto"  visible="true"
 											customData:p13nData='\{"leadingProperty":"CreaUser", "columnKey":"CreaUser"}'>
-											<Text text="Created by" id="nameColumnTitle25"/>
+											<ObjectIdentifier title="Created by" id="nameColumnTitle25"/>
 										</Column>
 										
 											<Column id="C26" width="auto" demandPopin="true" minScreenWidth="Tablet" visible="true"
 											customData:p13nData='\{"leadingProperty":"Date", "columnKey":"Date"}'>
-											<Text text="Date" id="nameColumnTitle26"/>
+											<ObjectIdentifier title="Date" id="nameColumnTitle26"/>
+										</Column>
+										
+											<Column id="C27" width="auto" demandPopin="false" minScreenWidth="Desktop" visible="true"
+											customData:p13nData='\{"leadingProperty":"LoioId", "columnKey":"LoioId"}'>
+											<ObjectIdentifier title="LoioId" id="nameColumnTitle27"/>
 										</Column>
 										
 										
@@ -278,14 +308,9 @@
 									<!--	<ColumnListItem type="Active"> -->
 										<ColumnListItem  id="list" type="Navigation" press="handleLineItemPress" >	
 											
-
-											
-										<cells>
-												
-											</cells>
-											
+	
 											<cells>
-												<ObjectIdentifier title="{Num}"/>
+												<ObjectIdentifier title="{Num}" />
 											</cells>
 											
 											<cells>
@@ -294,15 +319,25 @@
 										
 											
 											<cells>
-												<ObjectIdentifier title="{Descript}"/>
+												<Text text="{Descript}"/>
+											</cells>
+											
+												<cells>
+												<Text text="{Mimetype}"/>
 											</cells>
 											
 											<cells>
-												<ObjectIdentifier title="{CreaUser}"/>
+												<Text text="{CreaUser}"/>
 											</cells>
 											
+										
+											
 											<cells>
-												<ObjectIdentifier title="{Date}"/>
+												<Text text="{Date}"/>
+											</cells>
+											
+												<cells>
+												<Text text="{LoioId}"/>
 											</cells>
 
 										</ColumnListItem>
@@ -382,7 +417,10 @@
 				  <Button id="btn2" type="Reject" text="Reject" press="showDialog">
 				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
 				   </Button>
-				  	<Button id="btn3" type="Default" text="Move" press="showPopover">
+	<!--			  	<Button id="btn3" type="Default" text="Move" press="showPopover">
+-->
+				<Button id="btn3" type="Default" text="Move" press="openTableDialogUsers">
+
 
 				  <layoutData><OverflowToolbarLayoutData moveToOverflow="false" /></layoutData>
 				</Button>
