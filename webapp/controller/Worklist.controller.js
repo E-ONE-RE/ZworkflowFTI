@@ -32,6 +32,8 @@ sap.ui.define([
 					iOriginalBusyDelay,
 					oTable = this.byId("table");
 					
+			
+					
 						this._oTable = oTable;
 
 				// Put down worklist table's original value for busy indicator delay,
@@ -74,6 +76,70 @@ sap.ui.define([
     		},600000);
     		
 			},
+			
+			
+			
+			onBeforeRendering: function() {
+				var oModel = this.getView().getModel();
+			
+				
+					// recupero system id	
+				//var oModel = this.getModel();
+				var that = this;
+				oModel.read("/SystemSet('')", {
+					method: "GET",
+					
+								success: function(oData, oResponse) {
+								var oSystemModel = new sap.ui.model.json.JSONModel(oData);
+								that.getView().setModel(oSystemModel, "system");
+								
+					//		sJson = oData.results["0"].Json;
+				// var oSystemModel = that.getView().getModel('system');
+			//	 var oUserId = oSystemModel.oData.UserId;
+				 
+								},
+
+						error: function(oError) {
+							
+							jQuery.sap.require("sap.m.MessageBox");
+							sap.m.MessageBox.show("Something went wrong! Please try later.", {
+								icon: sap.m.MessageBox.Icon.ERROR,
+								title: "Error",
+								onClose: null,
+								styleClass: "sapUiSizeCompact",
+								initialFocus: null,
+								textDirection: sap.ui.core.TextDirection.Inherit,
+								details: 'Possible reasons:\n' +
+									'You are not connected to the network, ' +
+									'a backend component is not available ' +
+									'or an underlying system is down. ' +
+									'Please contact your system administrator to get more informations.',
+								contentWidth: "100px"
+							});
+							
+						}
+
+					});
+					/// end recupero system id
+					
+					
+
+			
+		/*		function fnReadS(oData, response) {
+					//console.log(oData);
+					//console.log(response);
+
+					sJson = oData.results["0"].Json;
+
+				}
+
+				function fnReadE(oError) {
+					//console.log(oError);
+				}
+*/
+			},
+			
+			
 
 			/* =========================================================== */
 			/* event handlers                                              */
@@ -103,7 +169,7 @@ sap.ui.define([
 
 			var msg = "Updated";
 			sap.m.MessageToast.show(msg, {
-				duration: 1500, // default
+				duration: 3000, // default
 				animationTimingFunction: "ease", // default
 				animationDuration: 1000, // default
 				closeOnBrowserNavigation: true // default
@@ -149,6 +215,10 @@ sap.ui.define([
 				sTitle = this.getResourceBundle().getText("worklistTableTitle");
 			}
 			this.getModel("worklistView").setProperty("/worklistTableTitle", sTitle);
+			
+			
+			
+			
 		},
 
 			/**
@@ -161,7 +231,9 @@ sap.ui.define([
 		
 			onPress : function (oEvent) {
 				// The source is the list item that got pressed
+					this.showBusyIndicator(0);
 				this._showObject(oEvent.getSource());
+				this.hideBusyIndicator();
 			},
 
 	/**
@@ -242,6 +314,56 @@ sap.ui.define([
 
 			},
 
+
+				onPullToRefresh: function() {
+
+				var oTable = this.byId("table");
+				oTable.getBinding("items").refresh();
+
+				/*	var msg = "Updated";
+					sap.m.MessageToast.show(msg, {
+						duration: 1500, // default
+						animationTimingFunction: "ease", // default
+						animationDuration: 1000, // default
+						closeOnBrowserNavigation: true // default
+					});*/
+
+				this.getView().byId("pullToRefresh").hide();
+				
+				var msg = "Updated";
+				sap.m.MessageToast.show(msg, {
+				duration: 3000, // default
+				animationTimingFunction: "ease", // default
+				animationDuration: 1000, // default
+				closeOnBrowserNavigation: true // default
+			});
+			
+			},
+			
+			
+			//********* Funzioni per busyIndicator *********//
+			// Funzione per nascondere il Busy Indicator
+			hideBusyIndicator: function() {
+				sap.ui.core.BusyIndicator.hide();
+			},
+
+			// Funzione per mostrare il busyIndicator in caricamento
+			//	showBusyIndicator : function (iDuration, iDelay) {
+			showBusyIndicator: function(iDelay) {
+				sap.ui.core.BusyIndicator.show(iDelay);
+
+				/*	if (iDuration && iDuration > 0) {
+								if (this._sTimeoutId) {
+									jQuery.sap.clearDelayedCall(this._sTimeoutId);
+									this._sTimeoutId = null;
+								}
+				
+								this._sTimeoutId = jQuery.sap.delayedCall(iDuration, this, function() {
+									this.hideBusyIndicator();
+								});
+							}*/
+			},
+			//*********************************************//
 			/**
 			 * Event handler for refresh event. Keeps filter, sort
 			 * and group settings and refreshes the list binding.

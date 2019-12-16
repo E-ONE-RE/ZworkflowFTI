@@ -1,0 +1,88 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:l="sap.ui.layout"
+   xmlns:core="sap.ui.core"
+   	xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<!--	<Popover
+		title="Users"
+		class="sapUiContentPadding"
+		placement="Top"
+		verticalScrolling="false"
+		horizontalScrolling="false">
+		<content>
+			
+		<SearchField id="productSearchField" placeholder="Search" showRefreshButton="true" showSearchButton="true" visible="true" width="100%"
+							 suggestionItems="{path: '/UserSet', sorter:{ path: 'Uname' }}">
+								<suggestionItems>
+									<SuggestionItem text="{Uname}" description="{Name1} {Name1}" key="{Uname}"/>
+								</suggestionItems>
+							</SearchField>
+							
+				</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button
+			     	type="Accept"
+					text="Ok"
+					press="actionTask"/>
+			   <Button
+			        type="Reject"
+					text="Cancel"
+					press="closePopover"/>
+			</Toolbar>
+		</footer>
+		</Popover>			-->
+		
+
+			
+	<TableSelectDialog
+		noDataText="No user found"
+		title="Select user"
+		search="handleSearchTableDialogUsers"
+		confirm="showMoveDialog"
+		cancel="handleCloseTableDialogUsers"
+			items="{
+					path: 'users>/results',
+					sorter: { path: 'Uname' }
+			
+				}">
+		<ColumnListItem>
+			<cells>
+				<ObjectIdentifier
+					title="{path: 'users>Uname'}" />
+				
+					<Text text="{path: 'users>Name1'}" />
+				<Text text="{path: 'users>Name2'}" />
+	
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column minScreenWidth="Phone"
+				demandPopin="false"
+				hAlign="Begin">
+				<header>
+					<Text text="Username" />
+				</header>
+			</Column>
+			
+				<Column minScreenWidth="Phone"
+				demandPopin="false"
+				hAlign="Begin">
+				<header>
+					<Text text="Name" />
+				</header>
+			</Column>
+			
+				<Column minScreenWidth="Phone"
+				demandPopin="false"
+				hAlign="Begin">
+				<header>
+					<Text text="Surname" />
+				</header>
+			</Column>
+			
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>
