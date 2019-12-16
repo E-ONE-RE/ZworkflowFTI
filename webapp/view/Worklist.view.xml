@@ -10,11 +10,15 @@ xmlns:html="http://www.w3.org/1999/xhtml">
 	title="{i18n>worklistViewTitle}"
 	floatingFooter="true">
 		
-<headerContent>
+	<headerContent>
+	
+	<Text  text="{system>/UserId} "/> <Text  text="({system>/SystemId}"/> <Text  text="/ {system>/ClientId})"/>
+			
             <Button
                 icon="sap-icon://synchronize"
                 press="onClickRefresh" 
                 type="Emphasized"/>
+                
   </headerContent>
   
    <PullToRefresh id="pullToRefresh" visible="{device>/support/touch}" refresh="onPullToRefresh"/>

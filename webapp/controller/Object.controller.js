@@ -528,7 +528,15 @@ OData.request
 		    //jQuery.sap.require("sap.ui.model.odata.datajs");
 			//var service = "http://10.126.72.12:50040"; // ECD SYSTEM
 	//		var service = "http://10.134.175.152:50000"; // GW SYSTEM
-			var service = "https://fiori.panariagroup.it"; // GW SYSTEM public dns ip 159.122.107.171
+			var service = location.origin;
+			var oHostname = location.hostname;
+			
+			if (oHostname === "localhost") {
+				 service = "https://fiori.panariagroup.it";
+				
+			} 
+			
+			//var service = "https://fiori.panariagroup.it"; // GW SYSTEM public dns ip 159.122.107.171
 			var oView = this.getView();
 			var oObject = oView.getBindingContext().getObject();
 			var oModel = this.getModel();
@@ -653,7 +661,16 @@ OData.request
 		   
 		 //  	var service = "http://10.126.72.12:50040";
 		 //  	var service = "http://10.134.175.152:50000"; // GW SYSTEM
-		   	var service = "https://fiori.panariagroup.it"; // GW SYSTEM public dns ip 159.122.107.171
+		 
+		 	var service = location.origin;
+			var oHostname = location.hostname;
+			
+			if (oHostname === "localhost") {
+				 service = "https://fiori.panariagroup.it";
+				
+			} 
+			
+		   	//var service = "https://fiori.panariagroup.it"; // GW SYSTEM public dns ip 159.122.107.171
 			var sReadURI = oModel.sServiceUrl;
 
 			var url = service + sReadURI + sRead;

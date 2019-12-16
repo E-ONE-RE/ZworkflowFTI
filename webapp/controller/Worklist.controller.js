@@ -32,6 +32,8 @@ sap.ui.define([
 					iOriginalBusyDelay,
 					oTable = this.byId("table");
 					
+			
+					
 						this._oTable = oTable;
 
 				// Put down worklist table's original value for busy indicator delay,
@@ -74,6 +76,70 @@ sap.ui.define([
     		},600000);
     		
 			},
+			
+			
+			
+			onBeforeRendering: function() {
+				var oModel = this.getView().getModel();
+			
+				
+					// recupero system id	
+				//var oModel = this.getModel();
+				var that = this;
+				oModel.read("/SystemSet('')", {
+					method: "GET",
+					
+								success: function(oData, oResponse) {
+								var oSystemModel = new sap.ui.model.json.JSONModel(oData);
+								that.getView().setModel(oSystemModel, "system");
+								
+					//		sJson = oData.results["0"].Json;
+				// var oSystemModel = that.getView().getModel('system');
+			//	 var oUserId = oSystemModel.oData.UserId;
+				 
+								},
+
+						error: function(oError) {
+							
+							jQuery.sap.require("sap.m.MessageBox");
+							sap.m.MessageBox.show("Something went wrong! Please try later.", {
+								icon: sap.m.MessageBox.Icon.ERROR,
+								title: "Error",
+								onClose: null,
+								styleClass: "sapUiSizeCompact",
+								initialFocus: null,
+								textDirection: sap.ui.core.TextDirection.Inherit,
+								details: 'Possible reasons:\n' +
+									'You are not connected to the network, ' +
+									'a backend component is not available ' +
+									'or an underlying system is down. ' +
+									'Please contact your system administrator to get more informations.',
+								contentWidth: "100px"
+							});
+							
+						}
+
+					});
+					/// end recupero system id
+					
+					
+
+			
+		/*		function fnReadS(oData, response) {
+					//console.log(oData);
+					//console.log(response);
+
+					sJson = oData.results["0"].Json;
+
+				}
+
+				function fnReadE(oError) {
+					//console.log(oError);
+				}
+*/
+			},
+			
+			
 
 			/* =========================================================== */
 			/* event handlers                                              */
@@ -149,6 +215,10 @@ sap.ui.define([
 				sTitle = this.getResourceBundle().getText("worklistTableTitle");
 			}
 			this.getModel("worklistView").setProperty("/worklistTableTitle", sTitle);
+			
+			
+			
+			
 		},
 
 			/**
@@ -163,7 +233,7 @@ sap.ui.define([
 				// The source is the list item that got pressed
 					this.showBusyIndicator(0);
 				this._showObject(oEvent.getSource());
-				this .hideBusyIndicator();
+				this.hideBusyIndicator();
 			},
 
 	/**
